@@ -3,6 +3,7 @@
 // Daniel Shiffman and Thomas Sanchez Lengeling
 // Tracking the average location beyond a given depth threshold
 // Thanks to Dan O'Sullivan
+// En d'r Luukie
 
 // https://github.com/shiffman/OpenKinect-for-Processing
 // http://shiffman.net/p5/kinect/
