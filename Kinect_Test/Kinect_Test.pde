@@ -110,11 +110,12 @@ void setup() {
 
 void draw() {
   background(0);
+  
 
   // Run the tracking analysis
   tracker.track();
   // Show the raw depth image + treshold
-  tracker.display();
+  //tracker.display();
 
 
 /*
@@ -127,6 +128,7 @@ void draw() {
 
   // Let's draw the "lerped" location
   PVector v2 = tracker.getLerpedPos();
+  /*
   fill(100, 250, 50, 200);
   noStroke();
   ellipse(v2.x, v2.y, 20, 20);
@@ -136,7 +138,7 @@ void draw() {
   fill(0);
   text("threshold: " + t + "    " +  "framerate: " + int(frameRate) + "    " +
     "UP increase threshold, DOWN decrease threshold", 10, 500);
-    
+  */
   ps.addParticle(v2.x, v2.y);
   ps.run();
     
@@ -148,11 +150,12 @@ void keyPressed() {
   int t = tracker.getThreshold();
   if (key == CODED) {
     if (keyCode == UP) {
-      t +=5;
+      t +=50;
       tracker.setThreshold(t);
     } else if (keyCode == DOWN) {
-      t -=5;
+      t -=50;
       tracker.setThreshold(t);
     }
+    System.out.println(t);
   }
 }
