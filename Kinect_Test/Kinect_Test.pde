@@ -1,4 +1,4 @@
-import codeanticode.syphon.*;
+//import codeanticode.syphon.*;
 
 // Daniel Shiffman and Thomas Sanchez Lengeling
 // Tracking the average location beyond a given depth threshold
@@ -11,8 +11,6 @@ import org.openkinect.processing.*;
 
 // The kinect stuff is happening in another class
 KinectTracker tracker;
-
-SyphonServer server;
 
 ParticleSystem ps;
 
@@ -98,9 +96,6 @@ class Particle {
 
 void setup() {
   size(640, 520, P3D);
-  
-  // Create syhpon server to send frames out.
-  server = new SyphonServer(this, "Processing Syphon");
 
   tracker = new KinectTracker(this);
   
@@ -139,8 +134,6 @@ void draw() {
     
   ps.addParticle(v2.x, v2.y);
   ps.run();
-    
-    server.sendScreen();
 }
 
 // Adjust the threshold with key presses
