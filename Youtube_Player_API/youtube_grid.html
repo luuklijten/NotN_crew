@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <title>Youtube grid</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="video-background">
+
+    <div class="gridRect">
+      <div class="video-foreground">
+        <iframe id="ytplayer1"  src="http://www.youtube.com/embed/mMD63t-W0Os?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&enablejsapi=1" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <div class="gridRect">
+      <div class="video-foreground">
+        <iframe id="ytplayer2"  src="http://www.youtube.com/embed/yr5x_NgU1aE?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&enablejsapi=1" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <div class="gridRect">
+      <div class="video-foreground">
+        <iframe id="ytplayer3"  src="http://www.youtube.com/embed/DZBN8FuBD7s?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&enablejsapi=1" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <div class="gridRect">
+      <div class="video-foreground">
+        <iframe id="ytplayer4"  src="http://www.youtube.com/embed/S42AKIK_h2g?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&enablejsapi=1" frameborder="0"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+
+    <script>
+
+    var tag = document.createElement('script');
+
+        tag.src = "//www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player1;
+
+        function onYouTubeIframeAPIReady() {
+            player1 = new YT.Player('ytplayer1', {
+                events: {
+
+                }
+            });
+
+            player2 = new YT.Player('ytplayer2', {
+                events: {
+
+                }
+            });
+
+            player3 = new YT.Player('ytplayer3', {
+                events: {
+
+                }
+            });
+
+            player4 = new YT.Player('ytplayer4', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+
+        }
+
+        function onPlayerReady() {
+
+            player1.playVideo();
+            player2.playVideo();
+            player3.playVideo();
+            player4.playVideo();
+
+            // Mute de video
+            player1.setVolume(0);
+            player2.setVolume(0);
+            player3.setVolume(0);
+            player4.setVolume(0);
+
+          }
+
+        </script>
+
+    </body>
+</html>
