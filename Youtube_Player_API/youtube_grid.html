@@ -5,35 +5,33 @@
     <title>Youtube grid</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script async src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body>
   <div class="video-background">
 
     <div class="gridRect">
-      <div class="video-foreground">
-        <iframe id="ytplayer1"  src="http://www.youtube.com/embed/mMD63t-W0Os?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&playlist=mMD63t-W0Os&enablejsapi=1" frameborder="0"></iframe>
-      </div>
+      <div id = 'ytplayer1'></div>
     </div>
 
     <div class="gridRect">
-      <div class="video-foreground">
-        <iframe id="ytplayer2"  src="http://www.youtube.com/embed/yr5x_NgU1aE?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&playlist=yr5x_NgU1aE&enablejsapi=1" frameborder="0"></iframe>
-      </div>
+      <div id = 'ytplayer2'></div>
     </div>
 
     <div class="gridRect">
-      <div class="video-foreground">
-        <iframe id="ytplayer3"  src="http://www.youtube.com/embed/DZBN8FuBD7s?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&playlist=DZBN8FuBD7s&enablejsapi=1" frameborder="0"></iframe>
-      </div>
+      <div id = 'ytplayer3'></div>
     </div>
 
     <div class="gridRect">
-      <div class="video-foreground">
-        <iframe id="ytplayer4"  src="http://www.youtube.com/embed/S42AKIK_h2g?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&playlist=S42AKIK_h2g&enablejsapi=1" frameborder="0"></iframe>
+      <!--<div class="video-foreground">
+      -->
+      <div id = 'ytplayer4'>
+        <!--<iframe id="ytplayer4"  src="http://www.youtube.com/embed/S42AKIK_h2g?rel=0&autoplay=0&showinfo=0&controls=0&loop=1&playlist=S42AKIK_h2g&enablejsapi=1" frameborder="0"></iframe>-->
       </div>
     </div>
 
@@ -42,60 +40,101 @@
 
     <script>
 
-    var tag = document.createElement('script');
+   /* var tag = document.createElement('script');
 
         tag.src = "//www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);*/
+
 
         var player1;
         var player2;
         var player3;
         var player4;
+        var playerConfig = [];
+
+        var videos =['mMD63t-W0Os', 'yr5x_NgU1aE', 'DZBN8FuBD7s', 'RqaqRPJpu9g'];
+
+        var startSeconds = 1;  // set your own video start time when loop play
+        var endSeconds = 20;   // set your own video end time when loop play
+
+
+        playerConfig = {
+        playerVars: {
+            controls: 0,            // Show pause/play buttons in player
+            showinfo: 1,            // Hide the video title
+            modestbranding: true,      // Hide the Youtube Logo
+            fs: 1, // Hide the full screen button
+            cc_load_policy: 0,      // Hide closed captions
+            iv_load_policy: 3,      // Hide the Video Annotations
+
+            start: startSeconds,
+            end: endSeconds
+
+        }
+        };
+
+        for (i = 0; i < videos.length; i++) {
+            playerConfig[i] = {
+            videoId: videos[i],
+                playlist: videos[i],
+                events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onStateChange // reference to Iframe API
+
+            }
+        };}
 
         function onYouTubeIframeAPIReady() {
-            player1 = new YT.Player('ytplayer1', {
-                events: {
+            player1 = new YT.Player('ytplayer1', playerConfig[0]);
 
-                }
-            });
+            player2 = new YT.Player('ytplayer2', playerConfig[1]);
 
-            player2 = new YT.Player('ytplayer2', {
-                events: {
+            player3 = new YT.Player('ytplayer3', playerConfig[2]);
 
-                }
-            });
-
-            player3 = new YT.Player('ytplayer3', {
-                events: {
-
-                }
-            });
-
-            player4 = new YT.Player('ytplayer4', {
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
+            player4 = new YT.Player('ytplayer4', playerConfig[3]);
 
         }
 
-        function onPlayerReady() {
-            //Speel videos
-            player1.playVideo();
-            player2.playVideo();
-            player3.playVideo();
-            player4.playVideo();
+    function onStateChange(state) {
+        if (state.data === YT.PlayerState.ENDED) {
+            player1.loadVideoById({
+                videoId: videos[0],
+                startSeconds: startSeconds,
+                endSeconds: endSeconds
 
-            // Mute de video
-            player1.setVolume(0);
-            player2.setVolume(0);
-            player3.setVolume(0);
-            player4.setVolume(0);
+            });
+            player2.loadVideoById({
+                videoId: videos[1],
+                startSeconds: startSeconds,
+                endSeconds: endSeconds
 
-          }
+            });
+            player3.loadVideoById({
+                videoId: videos[2],
+                startSeconds: startSeconds,
+                endSeconds: endSeconds
 
-        </script>
+            });
+            player4.loadVideoById({
+                videoId: videos[3],
+                startSeconds: startSeconds,
+                endSeconds: endSeconds
+
+            });
+        }
+    }
+
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+        event.target.setVolume(0);
+    }
+
+
+
+    </script>
 
     </body>
 </html>
+
